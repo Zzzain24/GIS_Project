@@ -13,7 +13,7 @@ blocks = gpd.GeoDataFrame(blocks_df, crs="EPSG:4326")
 ntas = gpd.read_file('data/2020_Neighborhood_Tabulation_Areas_(NTAs)_20260421.geojson')
 
 # Load Population (CSV)
-pop = pd.read_csv('data/Sheet 2_Full Data_data.csv')
+pop = pd.read_csv('data/Sheet 2_Full Data_data.csv', encoding='utf-16')
 
 # Load Trip Data to extract station locations
 trips = pd.read_csv('data/citibike_tripdata.csv')
@@ -29,7 +29,7 @@ stations_gdf = gpd.GeoDataFrame(
 
 # 3. CLEAN & PREP
 # Clean Population NTA names to match the GeoJSON (removing the "(MN)" etc)
-pop['ntaname_clean'] = pop['NTA Name'].str.split(' \(').str[0]
+pop['ntaname_clean'] = pop['NTA Name'].str.split(r' \(').str[0]
 ntas['ntaname_clean'] = ntas['ntaname']
 
 # Merge Pop into NTAs

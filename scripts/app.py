@@ -19,7 +19,7 @@ def load_data():
 data = load_data()
 
 # Sidebar filters
-neighborhood = st.sidebar.multiselect("Filter by Neighborhood", options=data['NTA'].unique())
+neighborhood = st.sidebar.multiselect("Filter by Neighborhood", options=data['ntaname'].unique())
 
 # Map Logic
 m = folium.Map(location=[40.7128, -74.0060], zoom_start=13, tiles="cartodbpositron")
@@ -29,10 +29,10 @@ folium.Choropleth(
     geo_data=data,
     name="Accessibility",
     data=data,
-    columns=["block_id", "dist_to_nearest"],
-    key_on="feature.properties.block_id",
+    columns=["GEOID", "dist_to_station"],
+    key_on="feature.properties.GEOID",
     fill_color="YlOrRd",
-    legend_name="Distance to Nearest Station (meters)"
+    legend_name="Distance to Nearest Station (feet)"
 ).add_to(m)
 
 st_folium(m, width=1000)
