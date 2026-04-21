@@ -10,7 +10,7 @@ blocks_df['geometry'] = blocks_df['the_geom'].apply(wkt.loads)
 blocks = gpd.GeoDataFrame(blocks_df, crs="EPSG:4326")
 
 # Load NTAs (GeoJSON)
-ntas = gpd.read_file('2020_Neighborhood_Tabulation_Areas_(NTAs)_20260421.geojson')
+ntas = gpd.read_file('data/2020_Neighborhood_Tabulation_Areas_(NTAs)_20260421.geojson')
 
 # Load Population (CSV)
 pop = pd.read_csv('data/Sheet 2_Full Data_data.csv')
