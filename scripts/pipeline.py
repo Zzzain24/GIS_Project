@@ -5,7 +5,7 @@ from shapely.ops import nearest_points
 
 # 1. LOAD DATA
 # Load Census Blocks (CSV with WKT geometry)
-blocks_df = pd.read_csv('2020_Census_Blocks_20260421.csv')
+blocks_df = pd.read_csv('data/2020_Census_Blocks_20260421.csv')
 blocks_df['geometry'] = blocks_df['the_geom'].apply(wkt.loads)
 blocks = gpd.GeoDataFrame(blocks_df, crs="EPSG:4326")
 
@@ -13,10 +13,10 @@ blocks = gpd.GeoDataFrame(blocks_df, crs="EPSG:4326")
 ntas = gpd.read_file('2020_Neighborhood_Tabulation_Areas_(NTAs)_20260421.geojson')
 
 # Load Population (CSV)
-pop = pd.read_csv('Sheet 2_Full Data_data.csv')
+pop = pd.read_csv('data/Sheet 2_Full Data_data.csv')
 
 # Load Trip Data to extract station locations
-trips = pd.read_csv('citibike_tripdata.csv')
+trips = pd.read_csv('data/citibike_tripdata.csv')
 
 # 2. EXTRACT STATION LOCATIONS
 # We take the unique start stations to build our station map
