@@ -45,7 +45,8 @@ with col1:
     st.metric("Total Population", f"{total_pop:,}")
 with col2:
     gap_pop = int(view_data[view_data['is_gap'] == True]['Pop 20'].sum())
-    st.metric("Residents in Gaps (>1k ft)", f"{gap_pop:,}", delta=f"{int((gap_pop/total_pop)*100)}% of Total", delta_color="inverse")
+    gap_pct = f"{int((gap_pop/total_pop)*100)}% of Total" if total_pop > 0 else "N/A"
+    st.metric("Residents in Gaps (>1k ft)", f"{gap_pop:,}", delta=gap_pct, delta_color="inverse")
 with col3:
     avg_dist = int(view_data['dist_to_station'].mean())
     st.metric("Avg. Walk to Station", f"{avg_dist} ft")
@@ -61,9 +62,9 @@ with col_map:
 
     # Access Category logic for specific styling
     folium.Choropleth(
-        geo_data=data,
+        geo_data=view_data,
         name="Accessibility Heatmap",
-        data=data,
+        data=view_data,
         columns=["GEOID", "dist_to_station"],
         key_on="feature.properties.GEOID",
         fill_color="YlOrRd",
@@ -108,7 +109,7 @@ with col_stats:
     st.write("Neighborhoods with furthest average distances:")
     
     # Calculate neighborhood-level stats
-    priority_df = data.groupby('ntaname').agg({
+    priority_df = view_data.groupby('ntaname').agg({
         'dist_to_station': 'mean',
         'Pop 20': 'sum'
     }).rename(columns={'dist_to_station': 'Avg Dist (ft)', 'Pop 20': 'Population'})

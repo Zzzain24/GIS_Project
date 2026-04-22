@@ -1,5 +1,5 @@
 # Pre-built GDAL/GEOS/PROJ — no C compilation needed
-FROM ghcr.io/osgeo/gdal:ubuntu-small-latest
+FROM ghcr.io/osgeo/gdal:ubuntu-small-3.10.3
 
 RUN apt-get update && apt-get install -y python3-pip && rm -rf /var/lib/apt/lists/*
 
