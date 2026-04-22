@@ -102,7 +102,7 @@ if selected_ntas:
         name="Selected Neighborhood",
         style_function=lambda x: {
             "fillColor": "transparent",
-            "color": "#2E86C1",
+            "color": "#0D4A25",
             "weight": 4,
             "dashArray": "5,5",
         },
