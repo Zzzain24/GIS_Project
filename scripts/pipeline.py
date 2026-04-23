@@ -1,3 +1,10 @@
+import os
+os.environ["PROJ_DATA"] = "/opt/anaconda3/envs/data-science-env/share/proj"
+os.environ["PROJ_LIB"] = "/opt/anaconda3/envs/data-science-env/share/proj"
+
+import pyproj
+pyproj.datadir.set_data_dir("/opt/anaconda3/envs/data-science-env/share/proj")
+
 import pandas as pd
 import geopandas as gpd
 from shapely import wkt
@@ -46,6 +53,13 @@ blocks = blocks[blocks['BoroName'] == 'Manhattan']
 
 # Spatial Join: Assign NTA name and Population to each block
 blocks_final = gpd.sjoin(blocks, ntas_with_pop[['geometry', 'ntaname', 'Pop 20']], how='left', predicate='within')
+
+# Apportion NTA population to each block by area fraction
+nta_total_area = blocks_final.groupby('ntaname')['Shape_Area'].transform(
+    lambda x: pd.to_numeric(x.astype(str).str.replace(',', ''), errors='coerce').sum()
+)
+block_area = pd.to_numeric(blocks_final['Shape_Area'].astype(str).str.replace(',', ''), errors='coerce')
+blocks_final['Pop 20'] = (block_area / nta_total_area * blocks_final['Pop 20']).round().astype('Int64')
 
 # Calculate Distance to nearest station
 def calculate_min_dist(block_geom, station_points):

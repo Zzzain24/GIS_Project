@@ -1,0 +1,2 @@
+PROJ_DATA=/opt/anaconda3/envs/data-science-env/share/proj
+  /opt/anaconda3/envs/data-science-env/bin/python scripts/pipeline.py

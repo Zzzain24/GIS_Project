@@ -1,1 +1,3 @@
 data/citibike_tripdata.csv
+data/processed_accessibility.geojson
+.DS_Store
