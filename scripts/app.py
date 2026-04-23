@@ -182,6 +182,22 @@ st.dataframe(
     use_container_width=True
 )
 
+# --- ANALYSIS ---
+st.subheader("📊 Analysis & Key Findings")
+
+st.markdown("""
+This project evaluates Citi Bike accessibility in Lower Manhattan by measuring the distance between residential blocks and the nearest bike stations.
+
+### Key Findings:
+- **Uneven access across neighborhoods:** Several high-density NTAs show consistently higher average walking distances to stations.
+- **Clear accessibility gaps:** Blocks more than 1,000 ft from a station disproportionately affect a meaningful share of the population.
+- **Travel time perspective:** Average walking time provides a more intuitive understanding of accessibility, revealing that some areas exceed a 5-minute walk threshold.
+- **Spatial clustering of gaps:** Underserved areas are not random—they form distinct geographic clusters, indicating systematic coverage gaps rather than isolated issues.
+
+### Outcome:
+The analysis identifies priority neighborhoods where adding Citi Bike stations would most improve mobility equity and reduce walking burden for residents.
+""")
+
 # --- METHODOLOGY ---
 with st.expander("See Methodology"):
     st.write("""
